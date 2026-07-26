@@ -3,10 +3,15 @@ package com.tunnel.demo.tunneldemo
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import com.tunnel.demo.tunneldemo.util.PrefsManager
 import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.io.File
+import java.io.FileWriter
 import java.security.Security
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NetPeekerApp : Application() {
 
@@ -25,21 +30,19 @@ class NetPeekerApp : Application() {
 
         PrefsManager.init(this)
 
-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
-            override fun onActivityStarted(activity: Activity) {}
-            override fun onActivityResumed(activity: Activity) {}
-            override fun onActivityPaused(activity: Activity) {}
-            override fun onActivityStopped(activity: Activity) {}
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-            override fun onActivityDestroyed(activity: Activity) {
-                // Memory leak detection hook
-            }
-        })
-
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-            Log.e("NetPeeker", "Uncaught on ${thread.name}", throwable)
+            try {
+                val sdf = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.US)
+                val time = sdf.format(Date())
+                val dir = getExternalFilesDir(null) ?: filesDir
+                val logFile = File(dir, "crash_$time.txt")
+                FileWriter(logFile).use { w ->
+                    w.write("Thread: ${thread.name}\n")
+                    w.write("Time: $time\n\n")
+                    throwable.printStackTrace(java.io.PrintWriter(w))
+                }
+            } catch (_: Exception) {}
             defaultHandler?.uncaughtException(thread, throwable)
         }
     }

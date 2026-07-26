@@ -148,7 +148,11 @@ class InspectionVpnService : VpnService() {
             PacketStatsCollector.start()
 
             scope.launch {
-                TunEngineBridge.nativeInit(vpnFd!!.fd)
+                try {
+                    TunEngineBridge.nativeInit(vpnFd!!.fd)
+                } catch (e: Exception) {
+                    Log.e(TAG, "nativeInit coroutine failed", e)
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG, "startVpnInternal failed", e)
