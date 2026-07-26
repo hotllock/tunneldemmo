@@ -79,13 +79,20 @@ class InspectionVpnService : VpnService() {
         try {
             when (intent?.action) {
                 ACTION_START -> {
-                    startVpnInternal()
+                    // Show notification BEFORE establishing VPN to prevent
+                    // ForegroundServiceDidNotStartInTimeException on slow devices
                     startForeground(NOTIFICATION_ID, buildNotification())
+                    startVpnInternal()
                 }
                 ACTION_STOP -> {
                     stopVpnInternal()
                     stopForeground(STOP_FOREGROUND_REMOVE)
                     stopSelf()
+                }
+                else -> {
+                    // Process was killed and restarted (null intent). Show notification
+                    // defensively to avoid the 5-second crash loop.
+                    startForeground(NOTIFICATION_ID, buildNotification())
                 }
             }
         } catch (e: Exception) {
