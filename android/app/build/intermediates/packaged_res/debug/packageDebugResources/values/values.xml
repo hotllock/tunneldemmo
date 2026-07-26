@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#FF7C4DFF</color>
+    <color name="accent_container">#1A7C4DFF</color>
+    <color name="accent_dim">#FF651FFF</color>
+    <color name="bg_card">#FF1C2333</color>
+    <color name="bg_card_elevated">#FF252D3E</color>
+    <color name="bg_input">#FF1C2333</color>
+    <color name="bg_nav">#FF0D1117</color>
+    <color name="bg_overlay">#E61C2333</color>
+    <color name="bg_primary">#FF0D1117</color>
+    <color name="bg_secondary">#FF161B22</color>
+    <color name="divider">#FF30363D</color>
+    <color name="error_red">#FFDA3636</color>
+    <color name="http_delete">#FFDA3636</color>
+    <color name="http_get">#FF58A6FF</color>
+    <color name="http_other">#FF8B949E</color>
+    <color name="http_patch">#FFBC8CFF</color>
+    <color name="http_post">#FF3FB950</color>
+    <color name="http_put">#FFD29922</color>
+    <color name="status_2xx">#FF3FB950</color>
+    <color name="status_3xx">#FF58A6FF</color>
+    <color name="status_4xx">#FFD29922</color>
+    <color name="status_5xx">#FFDA3636</color>
+    <color name="status_unknown">#FF8B949E</color>
+    <color name="success_green">#FF3FB950</color>
+    <color name="text_disabled">#FF484F58</color>
+    <color name="text_link">#FF58A6FF</color>
+    <color name="text_primary">#FFE6EDF3</color>
+    <color name="text_secondary">#FF8B949E</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="active_connections">Active</string>
+    <string name="app_name">NetPeeker</string>
+    <string name="body_label">Body</string>
+    <string name="cert_installed">Install Root CA in Settings > Encryption &amp; credentials > Install a certificate</string>
+    <string name="filter_all">All</string>
+    <string name="headers_label">Headers</string>
+    <string name="http_count">HTTP</string>
+    <string name="no_transactions">No transactions captured yet</string>
+    <string name="notification_channel_vpn">VPN Status</string>
+    <string name="notification_vpn_running">Network capture is active</string>
+    <string name="overlay_stats">Packets: %1$d | HTTP: %2$d</string>
+    <string name="packets_total">Packets</string>
+    <string name="pause_capture">Pause</string>
+    <string name="raw_tab">Raw</string>
+    <string name="replay_btn">Replay</string>
+    <string name="request_tab">Request</string>
+    <string name="response_tab">Response</string>
+    <string name="resume_capture">Resume</string>
+    <string name="save_cert">Export Root CA</string>
+    <string name="search_hint">Search URLs, methods, hosts…</string>
+    <string name="start_vpn">Start Capture</string>
+    <string name="stop_vpn">Stop Capture</string>
+    <string name="toggle_overlay">Floating Widget</string>
+    <string name="vpn_connection_name">NetPeeker VPN</string>
+    <style name="Theme.NetPeeker" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/accent_container</item>
+        <item name="colorSecondary">@color/accent_dim</item>
+        <item name="android:colorBackground">@color/bg_primary</item>
+        <item name="colorSurface">@color/bg_card</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+        <item name="colorOutline">@color/divider</item>
+        <item name="android:statusBarColor">@color/bg_primary</item>
+        <item name="android:navigationBarColor">@color/bg_primary</item>
+        <item name="elevationOverlayColor">@color/bg_card_elevated</item>
+        <item name="elevationOverlayAccentColor">@color/accent</item>
+    </style>
+    <style name="Widget.NetPeeker.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/bg_card</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/divider</item>
+        <item name="strokeWidth">0.5dp</item>
+        <item name="contentPadding">12dp</item>
+    </style>
+    <style name="Widget.NetPeeker.Chip" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/bg_card</item>
+        <item name="chipStrokeColor">@color/divider</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="Widget.NetPeeker.OverlayButton" parent="Widget.Material3.Button.TextButton">
+        <item name="backgroundTint">@color/accent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">6dp</item>
+    </style>
+</resources>

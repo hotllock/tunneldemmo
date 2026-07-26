@@ -1,0 +1,126 @@
+[
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_input_bg.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/input_bg.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_card_bg.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/card_bg.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_notification.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_notification.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_hide.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_hide.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_overlay_floating_widget.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/overlay_floating_widget.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_vpn_inactive.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_vpn_inactive.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/xml_network_security_config.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_method_badge_bg.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/method_badge_bg.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_stats.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_stats.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_fragment_response.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/fragment_response.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_overlay_bg.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/overlay_bg.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_play.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_play.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_search.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_search.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_fragment_transaction_detail.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/fragment_transaction_detail.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/animator_appbar_elevation.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/animator/appbar_elevation.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_dialog_settings_input.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/dialog_settings_input.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_replay.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_replay.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_item_transaction.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/item_transaction.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_overlay.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_overlay.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_vpn_active.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_vpn_active.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_fragment_raw.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/fragment_raw.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_ic_stop.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/ic_stop.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/drawable_overlay_btn_bg.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/drawable/overlay_btn_bg.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/menu_bottom_nav.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/menu/bottom_nav.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_activity_main.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/layout_fragment_request.xml.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/layout/fragment_request.xml"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tunnel.demo.tunneldemo.app-debug-40:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.tunnel.demo.tunneldemo.app-main-42:/mipmap-hdpi/ic_launcher.png"
+    }
+]
