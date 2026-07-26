@@ -122,18 +122,28 @@ class InspectionVpnService : VpnService() {
                 builder.setMetered(false)
             }
 
-            // Allow VPN's own app to bypass the tunnel (prevent loop)
-            builder.addDisallowedApplication(packageName)
-
             // Apply user-selected app filter: only inspect selected apps
             val allowedApps = VpnAppManager.getAllowedApps()
             if (allowedApps.isNotEmpty()) {
+                // "Allow list" mode: only selected apps go through VPN tunnel.
+                // The VPN app itself is automatically excluded (not in the list),
+                // preventing the loop. Do NOT use addDisallowedApplication here -
+                // mixing allowed and disallowed is not supported.
                 for (pkg in allowedApps) {
-                    builder.addAllowedApplication(pkg)
+                    if (pkg != packageName) {
+                        builder.addAllowedApplication(pkg)
+                    }
                 }
+            } else {
+                // "All apps" mode: only exclude the VPN app itself to prevent loop
+                builder.addDisallowedApplication(packageName)
             }
 
-            vpnFd = builder.establish() ?: return
+            vpnFd = builder.establish()
+            if (vpnFd == null) {
+                Log.w(TAG, "establish returned null")
+                return
+            }
             LocalProxyServer.start(this)
             PacketStatsCollector.start()
 
@@ -141,6 +151,7 @@ class InspectionVpnService : VpnService() {
                 TunEngineBridge.nativeInit(vpnFd!!.fd)
             }
         } catch (e: Exception) {
+            Log.e(TAG, "startVpnInternal failed", e)
             cleanupVpn()
         }
     }
