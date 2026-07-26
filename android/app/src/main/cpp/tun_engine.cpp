@@ -197,6 +197,27 @@ static uint32_t tcp6_psum(const uint8_t *saddr, const uint8_t *daddr, uint16_t t
     return sum;
 }
 
+// UDP pseudo-header sum for IPv6
+static uint32_t udp6_psum(const uint8_t *saddr, const uint8_t *daddr, uint16_t udp_len_n) {
+    uint32_t sum = 0;
+    for (int i = 0; i < 16; i += 2)
+        sum += ((uint16_t)saddr[i] << 8) | saddr[i+1];
+    for (int i = 0; i < 16; i += 2)
+        sum += ((uint16_t)daddr[i] << 8) | daddr[i+1];
+    sum += htons(udp_len_n);
+    sum += htons(IPPROTO_UDP);
+    return sum;
+}
+
+static void set_udp6_csum(udp_hdr *udp, int udp_len,
+                           const uint8_t *saddr, const uint8_t *daddr) {
+    udp->csum = 0;
+    uint32_t sum = udp6_psum(saddr, daddr, htons((uint16_t)udp_len));
+    sum += inet_csum(udp, udp_len);
+    while (sum >> 16) sum = (sum & 0xffff) + (sum >> 16);
+    udp->csum = (uint16_t)~sum;
+}
+
 static void set_tcp_csum(struct tcp_hdr *tcp, int tcp_len, uint32_t saddr_n, uint32_t daddr_n) {
     tcp->csum = 0;
     uint32_t sum = tcp4_psum(saddr_n, daddr_n, htons((uint16_t)tcp_len));
@@ -510,10 +531,7 @@ static void write_udp_response(int tun_fd, const uint8_t *payload, uint16_t pay_
         udp->src_port = htons(sport);
         udp->dst_port = htons(dport);
         udp->length = htons(udp_len);
-        // UDP checksum is mandatory for IPv6, but we set 0 for simplicity
-        // (some networks accept it, others will drop; proper impl needs pseudo-header)
-        // TODO: compute proper UDPv6 checksum
-        udp->csum = 0;
+        set_udp6_csum(udp, udp_len, saddr, daddr);
         memcpy(buf + sizeof(ip6_hdr) + sizeof(udp_hdr), payload, pay_len);
         write_tun(tun_fd, buf, total);
         free(buf);

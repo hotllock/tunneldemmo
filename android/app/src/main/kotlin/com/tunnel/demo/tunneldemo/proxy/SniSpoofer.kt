@@ -76,11 +76,8 @@ object SniSpoofer {
             realOutput.write(finalRecord)
             realOutput.flush()
 
-            input.reset()
-            // Skip the bytes we already read (header + record) so subsequent reads don't see them
-            // Actually we can't "skip" them from input, need different approach
-            // Instead: write original bytes back or use a buffered approach
-
+            // Don't reset - we've consumed the ClientHello, so relay thread
+            // will continue from the next TLS record automatically
             return true
         } catch (e: Exception) {
             Log.w(TAG, "SNI peek failed: ${e.message}")

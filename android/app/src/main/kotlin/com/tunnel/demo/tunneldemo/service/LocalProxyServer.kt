@@ -54,13 +54,14 @@ object LocalProxyServer {
 
         scope.launch {
             try {
-                serverSocket = ServerSocket(PROXY_PORT, BACKLOG, Inet4Address.getByName("127.0.0.1"))
-                serverSocket?.reuseAddress = true
+                val ss = ServerSocket(PROXY_PORT, BACKLOG, Inet4Address.getByName("127.0.0.1"))
+                ss.reuseAddress = true
+                serverSocket = ss
                 TunEngineBridge.nativeSetProxyPort(PROXY_PORT)
 
-                while (isRunning.get() && !serverSocket!!.isClosed) {
+                while (isRunning.get() && !ss.isClosed) {
                     try {
-                        val client = serverSocket!!.accept()
+                        val client = ss.accept()
                         client.soTimeout = CONNECT_TIMEOUT_MS
                         executor.execute { handleConn(client) }
                     } catch (e: IOException) { if (!isRunning.get()) break }

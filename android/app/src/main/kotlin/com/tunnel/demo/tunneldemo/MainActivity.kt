@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.net.VpnService
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -75,6 +76,10 @@ class MainActivity : AppCompatActivity() {
         else showSnackbar("Overlay izni gerekli")
     }
 
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { }
+
     private val overlayConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) { overlayBound = true }
         override fun onServiceDisconnected(name: ComponentName) { overlayBound = false }
@@ -86,6 +91,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
         setupToolbar()
         observeStats()
         observeTransactions()

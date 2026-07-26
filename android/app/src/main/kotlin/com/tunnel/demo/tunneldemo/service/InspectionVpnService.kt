@@ -100,9 +100,6 @@ class InspectionVpnService : VpnService() {
     private fun startVpnInternal() {
         if (vpnFd != null) return
         try {
-            // Start local proxy first so native engine can connect to it
-            LocalProxyServer.start(this)
-
             val builder = Builder()
             builder.setSession(getString(R.string.vpn_connection_name))
             builder.setMtu(VPN_MTU)
@@ -119,6 +116,7 @@ class InspectionVpnService : VpnService() {
             builder.addDisallowedApplication(packageName)
 
             vpnFd = builder.establish() ?: return
+            LocalProxyServer.start(this)
             PacketStatsCollector.start()
 
             scope.launch {
@@ -139,6 +137,7 @@ class InspectionVpnService : VpnService() {
     private fun cleanupVpn() {
         try { vpnFd?.close() } catch (_: Exception) {}
         vpnFd = null
+        LocalProxyServer.stop()
     }
 
     private fun createNotificationChannel() {
