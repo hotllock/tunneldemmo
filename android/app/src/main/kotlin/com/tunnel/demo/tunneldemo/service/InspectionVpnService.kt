@@ -173,7 +173,7 @@ class InspectionVpnService : VpnService() {
             .setContentIntent(openIntent)
             .addAction(R.drawable.ic_stop, getString(R.string.stop_vpn), stopIntent)
             .setOngoing(true)
-            .setSilent(true)
+            .setSound(null)
             .build()
     }
 }

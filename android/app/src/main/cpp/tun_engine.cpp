@@ -1050,7 +1050,7 @@ static void pkt_loop(int fd) {
 extern "C" {
 
 JNIEXPORT jint JNICALL
-Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_nativeInit(
+Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_init(
     JNIEnv *env, jclass, jint tun_fd)
 {
     if (g_run.load()) return 0;
@@ -1075,7 +1075,7 @@ Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_nativeIsRunning(
 }
 
 JNIEXPORT void JNICALL
-Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_nativeStop(
+Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_stop(
     JNIEnv *env, jclass)
 {
     g_run = false;
@@ -1097,14 +1097,14 @@ Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_nativeStop(
 }
 
 JNIEXPORT void JNICALL
-Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_nativeSetProxyPort(
+Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_setProxyPort(
     JNIEnv *env, jclass, jint port)
 {
     g_proxy_port = port;
 }
 
 JNIEXPORT jint JNICALL
-Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_nativeGetStats(
+Java_com_tunnel_demo_tunneldemo_native_TunEngineBridge_getStats(
     JNIEnv *env, jclass, jint type)
 {
     if (type < 0 || type > 5) return 0;
