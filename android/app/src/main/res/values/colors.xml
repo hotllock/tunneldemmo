@@ -35,6 +35,11 @@
     <color name="status_5xx">#FFDA3636</color>
     <color name="status_unknown">#FF8B949E</color>
 
+    <!-- Status colors used in XML layouts -->
+    <color name="status_active">#FF3FB950</color>
+    <color name="status_inactive">#FF484F58</color>
+    <color name="status_200">#FF3FB950</color>
+
     <!-- Misc -->
     <color name="divider">#FF30363D</color>
     <color name="white">#FFFFFFFF</color>
