@@ -572,6 +572,7 @@ class MainActivity : AppCompatActivity() {
             "Hosts Override",
             "Proxy Zinciri (SOCKS5/HTTP)",
             "SNI Spoofing",
+            "Session Tightening",
             "User-Agent Spoofing",
             "HAR Export",
             "JSON Export",
@@ -586,10 +587,11 @@ class MainActivity : AppCompatActivity() {
                     2 -> showHostsSettings()
                     3 -> showProxyChainSettings()
                     4 -> showSniSettings()
-                    5 -> showUaSettings()
-                    6 -> exportHAR()
-                    7 -> exportJSON()
-                    8 -> showAbout()
+                    5 -> showSessionTighteningSettings()
+                    6 -> showUaSettings()
+                    7 -> exportHAR()
+                    8 -> exportJSON()
+                    9 -> showAbout()
                 }
             }
             .show()
@@ -836,6 +838,30 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun showSessionTighteningSettings() {
+        val prefs = getSharedPreferences("netpeeker", Context.MODE_PRIVATE)
+        val stripSid = prefs.getBoolean("strip_session_id", true)
+        val stripTicket = prefs.getBoolean("strip_session_ticket", true)
+
+        val items = arrayOf(
+            "${if (stripSid) "\u2713" else "  "} Strip Session ID",
+            "${if (stripTicket) "\u2713" else "  "} Strip Session Ticket"
+        )
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Session Tightening")
+            .setItems(items) { _, which ->
+                when (which) {
+                    0 -> prefs.edit().putBoolean("strip_session_id", !stripSid).apply()
+                    1 -> prefs.edit().putBoolean("strip_session_ticket", !stripTicket).apply()
+                }
+                val cfg = loadConfig()
+                LocalProxyServer.updateConfig(cfg)
+                showSessionTighteningSettings()
+            }
+            .setPositiveButton("Kapat", null)
+            .show()
+    }
+
     private fun loadConfig(): ProxyConfig {
         val prefs = getSharedPreferences("netpeeker", Context.MODE_PRIVATE)
         val hostsStr = prefs.getString("hosts_override", "") ?: ""
@@ -866,7 +892,9 @@ class MainActivity : AppCompatActivity() {
             customUserAgent = prefs.getString("ua_custom", "") ?: "",
             stripHeaders = listOf("X-Forwarded-For", "Via", "X-Real-IP"),
             enabledSniSpoof = prefs.getBoolean("sni_spoof_enabled", false),
-            sniOverride = sniMap
+            sniOverride = sniMap,
+            stripSessionData = prefs.getBoolean("strip_session_id", true),
+            stripSessionTicket = prefs.getBoolean("strip_session_ticket", true)
         )
     }
 

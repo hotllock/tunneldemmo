@@ -11,6 +11,7 @@ object SniSpoofer {
     private const val TLS_CONTENT_HANDSHAKE = 0x16.toByte()
     private const val TLS_HANDSHAKE_CLIENT_HELLO = 0x01.toByte()
     private const val SNI_EXTENSION_TYPE = 0x0000
+    private const val SESSION_TICKET_EXTENSION_TYPE = 0x0023
 
     private var config: ProxyConfig = ProxyConfig.DEFAULT
     private val connectionSni = ConcurrentHashMap<String, String>()
@@ -70,8 +71,13 @@ object SniSpoofer {
                 } else null
             } else null
 
-            // Forward (possibly modified) ClientHello
             val finalRecord = modifiedRecord ?: record
+
+            // Session tightening: strip session ID and session ticket for privacy
+            if (config.stripSessionData || config.stripSessionTicket) {
+                tightenSessionData(finalRecord)
+            }
+
             realOutput.write(header)
             realOutput.write(finalRecord)
             realOutput.flush()
@@ -183,6 +189,41 @@ object SniSpoofer {
             pos += extDataLen
         }
         return null
+    }
+
+    private fun tightenSessionData(clientHello: ByteArray) {
+        try {
+            var pos = 4
+            pos += 2 + 32
+
+            val sessionIdLen = clientHello[pos].toInt() and 0xFF
+            pos += 1
+            if (config.stripSessionData && sessionIdLen > 0) {
+                java.util.Arrays.fill(clientHello, pos, pos + sessionIdLen, 0.toByte())
+            }
+            pos += sessionIdLen
+
+            val cipherLen = ((clientHello[pos].toInt() and 0xFF) shl 8) or (clientHello[pos + 1].toInt() and 0xFF)
+            pos += 2 + cipherLen
+
+            val compLen = clientHello[pos].toInt() and 0xFF
+            pos += 1 + compLen
+
+            val extLen = ((clientHello[pos].toInt() and 0xFF) shl 8) or (clientHello[pos + 1].toInt() and 0xFF)
+            pos += 2
+            val extEnd = pos + extLen
+
+            while (pos + 3 < extEnd && pos + 3 < clientHello.size) {
+                val extType = ((clientHello[pos].toInt() and 0xFF) shl 8) or (clientHello[pos + 1].toInt() and 0xFF)
+                val extDataLen = ((clientHello[pos + 2].toInt() and 0xFF) shl 8) or (clientHello[pos + 3].toInt() and 0xFF)
+                pos += 4
+
+                if (extType == SESSION_TICKET_EXTENSION_TYPE && config.stripSessionTicket && extDataLen > 0) {
+                    java.util.Arrays.fill(clientHello, pos, pos + extDataLen, 0.toByte())
+                }
+                pos += extDataLen
+            }
+        } catch (_: Exception) {}
     }
 
     private fun findSniOverride(hostname: String): String? {

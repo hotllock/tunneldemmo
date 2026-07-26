@@ -14,7 +14,9 @@ data class ProxyConfig(
     val customUserAgent: String = "Mozilla/5.0 (Android 14; Mobile; rv:125.0) Gecko/125.0 Firefox/125.0",
     val stripHeaders: List<String> = listOf("X-Forwarded-For", "Via"),
     val enabledSniSpoof: Boolean = false,
-    val sniOverride: Map<String, String> = emptyMap()
+    val sniOverride: Map<String, String> = emptyMap(),
+    val stripSessionData: Boolean = true,
+    val stripSessionTicket: Boolean = true
 ) {
     companion object {
         val DEFAULT = ProxyConfig()
