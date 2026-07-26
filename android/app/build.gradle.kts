@@ -62,6 +62,7 @@ android {
     packaging {
         resources {
             excludes += setOf("META-INF/DEPENDENCIES", "META-INF/LICENSE", "META-INF/LICENSE.txt")
+            pickFirsts += setOf("META-INF/versions/9/OSGI-INF/MANIFEST.MF")
         }
     }
 }
