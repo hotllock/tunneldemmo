@@ -7,6 +7,14 @@ import androidx.core.content.edit
 class PrefsManager(context: Context) {
 
     companion object {
+        @Volatile
+        private var _instance: PrefsManager? = null
+
+        fun init(context: Context) {
+            _instance = PrefsManager(context.applicationContext)
+        }
+
+        fun getInstance(): PrefsManager = _instance ?: throw IllegalStateException("PrefsManager not initialized")
         private const val PREFS_NAME = "netpeeker_prefs"
 
         const val KEY_VPN_ENABLED = "vpn_enabled"

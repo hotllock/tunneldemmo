@@ -181,7 +181,7 @@ object CertificateManager {
             notBefore,
             notAfter,
             subjectName,
-            org.bouncycastle.cert.jcajce.JcaX509CertHolder(keyPair.public)
+            org.bouncycastle.asn1.x509.SubjectPublicKeyInfo.getInstance(keyPair.public.encoded)
         )
 
         // Basic Constraints: CA=true
@@ -262,7 +262,7 @@ object CertificateManager {
             notBefore,
             notAfter,
             subjectBuilder.build(),
-            org.bouncycastle.cert.jcajce.JcaX509CertHolder(serverKeyPair.public)
+            org.bouncycastle.asn1.x509.SubjectPublicKeyInfo.getInstance(serverKeyPair.public.encoded)
         )
 
         // Basic Constraints: CA=false

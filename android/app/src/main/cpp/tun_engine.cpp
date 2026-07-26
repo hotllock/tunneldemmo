@@ -18,6 +18,7 @@
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <cerrno>
+#include <jni.h>
 #include <android/log.h>
 
 #define LOG_TAG "TunEngine"

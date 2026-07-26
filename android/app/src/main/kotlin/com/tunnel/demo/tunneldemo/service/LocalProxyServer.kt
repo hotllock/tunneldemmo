@@ -2,6 +2,7 @@ package com.tunnel.demo.tunneldemo.service
 
 import com.tunnel.demo.tunneldemo.model.*
 import com.tunnel.demo.tunneldemo.native.TunEngineBridge
+import kotlin.concurrent.thread
 import com.tunnel.demo.tunneldemo.proxy.DnsResolver
 import com.tunnel.demo.tunneldemo.proxy.ProxyConfig
 import com.tunnel.demo.tunneldemo.proxy.SniSpoofer

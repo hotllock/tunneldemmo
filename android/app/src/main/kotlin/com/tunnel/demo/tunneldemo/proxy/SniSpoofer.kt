@@ -134,7 +134,7 @@ object SniSpoofer {
                     if (nameListLen > 0 && pos + 3 < clientHello.size) {
                         val entryType = clientHello[pos + 2] // 0x00 = host_name
                         val nameLen = ((clientHello[pos + 3].toInt() and 0xFF) shl 8) or (clientHello[pos + 4].toInt() and 0xFF)
-                        if (entryType == 0x00 && nameLen > 0 && pos + 5 + nameLen <= clientHello.size) {
+                        if (entryType.toInt() == 0x00 && nameLen > 0 && pos + 5 + nameLen <= clientHello.size) {
                             return String(clientHello, pos + 5, nameLen, Charsets.UTF_8)
                         }
                     }

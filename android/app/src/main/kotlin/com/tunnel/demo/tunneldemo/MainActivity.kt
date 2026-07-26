@@ -12,6 +12,7 @@ import android.os.IBinder
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,6 +31,7 @@ import com.tunnel.demo.tunneldemo.service.FloatingOverlayService
 import com.tunnel.demo.tunneldemo.service.InspectionVpnService
 import com.tunnel.demo.tunneldemo.service.LocalProxyServer
 import com.tunnel.demo.tunneldemo.service.PacketStatsCollector
+import com.tunnel.demo.tunneldemo.proxy.DnsResolver
 import com.tunnel.demo.tunneldemo.proxy.ProxyConfig
 import com.tunnel.demo.tunneldemo.ui.TransactionAdapter
 import com.tunnel.demo.tunneldemo.ui.TransactionDetailFragment

@@ -44,9 +44,9 @@ object TunEngineBridge {
         try { stop() } catch (e: Exception) { Log.e(TAG, "nativeStop failed", e) }
     }
 
-    fun isRunning(): Boolean {
+    fun isEngineRunning(): Boolean {
         if (!loaded) return false
-        return try { isRunning() } catch (_: Exception) { false }
+        return try { nativeIsRunning() } catch (_: Exception) { false }
     }
 
     @JvmStatic
@@ -79,7 +79,7 @@ object TunEngineBridge {
 
     // --- Native methods ---
     private external fun init(tunFd: Int): Int
-    private external fun isRunning(): Boolean
+    private external fun nativeIsRunning(): Boolean
     private external fun stop()
     private external fun setProxyPort(port: Int)
     private external fun getStats(statType: Int): Int
