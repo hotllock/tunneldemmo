@@ -14,6 +14,7 @@ import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -156,6 +157,44 @@ class MainActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "NetPeeker"
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_select_apps -> {
+                    showAppSelectionDialog()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    private fun showAppSelectionDialog() {
+        val apps = VpnAppManager.getInstalledApps(this)
+        val allowed = VpnAppManager.getAllowedApps()
+        val checked = apps.map { it.packageName in allowed }.toBooleanArray()
+        val labels = apps.map { it.label }.toTypedArray()
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Select Apps to Inspect")
+            .setMultiChoiceItems(labels, checked) { _, which, isChecked ->
+                checked[which] = isChecked
+            }
+            .setPositiveButton("Apply") { _, _ ->
+                val selected = apps.filterIndexed { i, _ -> checked[i] }
+                    .map { it.packageName }.toSet()
+                VpnAppManager.setAllowedApps(selected)
+                val count = selected.size
+                val msg = if (count == 0) "All apps will be inspected"
+                    else "$count app(s) selected for inspection"
+                showSnackbar(msg)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun observeStats() {

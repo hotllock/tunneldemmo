@@ -6,17 +6,22 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.VpnService
 import android.os.Build
 import android.os.ParcelFileDescriptor
+import android.util.Log
 import com.tunnel.demo.tunneldemo.MainActivity
 import com.tunnel.demo.tunneldemo.R
+import com.tunnel.demo.tunneldemo.VpnAppManager
 import com.tunnel.demo.tunneldemo.native.TunEngineBridge
 import kotlinx.coroutines.*
 
 class InspectionVpnService : VpnService() {
 
     companion object {
+        private const val TAG = "InspectionVpnService"
+
         const val ACTION_START = "com.tunnel.demo.tunneldemo.START_VPN"
         const val ACTION_STOP = "com.tunnel.demo.tunneldemo.STOP_VPN"
         const val NOTIFICATION_CHANNEL = "vpn_status"
@@ -71,16 +76,21 @@ class InspectionVpnService : VpnService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        when (intent?.action) {
-            ACTION_START -> {
-                startVpnInternal()
-                startForeground(NOTIFICATION_ID, buildNotification())
+        try {
+            when (intent?.action) {
+                ACTION_START -> {
+                    startVpnInternal()
+                    startForeground(NOTIFICATION_ID, buildNotification())
+                }
+                ACTION_STOP -> {
+                    stopVpnInternal()
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
             }
-            ACTION_STOP -> {
-                stopVpnInternal()
-                stopForeground(STOP_FOREGROUND_REMOVE)
-                stopSelf()
-            }
+        } catch (e: Exception) {
+            Log.e(TAG, "onStartCommand error", e)
+            stopVpnInternal()
         }
         return START_STICKY
     }
@@ -114,6 +124,14 @@ class InspectionVpnService : VpnService() {
 
             // Allow VPN's own app to bypass the tunnel (prevent loop)
             builder.addDisallowedApplication(packageName)
+
+            // Apply user-selected app filter: only inspect selected apps
+            val allowedApps = VpnAppManager.getAllowedApps()
+            if (allowedApps.isNotEmpty()) {
+                for (pkg in allowedApps) {
+                    builder.addAllowedApplication(pkg)
+                }
+            }
 
             vpnFd = builder.establish() ?: return
             LocalProxyServer.start(this)
