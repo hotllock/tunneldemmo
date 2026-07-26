@@ -377,7 +377,7 @@ object LocalProxyServer {
                 upOut.flush()
                 val resp = ByteArray(2)
                 readFully(upIn, resp)
-                if (resp[0] != 0x05 || resp[1] != 0x00) throw IOException("SOCKS5 auth failed")
+                if (resp[0].toInt() != 0x05 || resp[1].toInt() != 0x00) throw IOException("SOCKS5 auth failed")
 
                 // CONNECT request
                 val targetBytes = targetIp.split(".").map { it.toInt() and 0xFF }

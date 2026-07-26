@@ -228,7 +228,7 @@ static bool protect_socket(int fd) {
     bool need_detach = false;
     int get_ret = g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
     if (get_ret == JNI_EDETACHED) {
-        if (g_jvm->AttachCurrentThread((void**)&env, nullptr) != JNI_OK) return false;
+        if (g_jvm->AttachCurrentThread(&env, nullptr) != JNI_OK) return false;
         need_detach = true;
     }
     if (!env) return false;
