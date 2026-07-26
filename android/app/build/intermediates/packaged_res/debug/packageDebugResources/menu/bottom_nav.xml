@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_capture" android:icon="@drawable/ic_stats" android:title="Capture" />
-    <item android:id="@+id/nav_certificate" android:icon="@drawable/ic_vpn_active" android:title="Sertifika" />
-    <item android:id="@+id/nav_export" android:icon="@drawable/ic_replay" android:title="Export" />
-    <item android:id="@+id/nav_overlay" android:icon="@drawable/ic_play" android:title="Overlay" />
-    <item android:id="@+id/nav_settings" android:icon="@drawable/ic_stop" android:title="Ayarlar" />
-</menu>
