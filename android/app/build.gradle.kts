@@ -21,7 +21,7 @@ android {
 
         externalNativeBuild {
             cmake {
-                cppFlags += "-std=c++17 -O2 -Wall -Werror"
+                cppFlags += "-std=c++17 -O2 -Wall -Werror -Wno-unused-function"
             }
         }
     }
