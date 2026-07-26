@@ -43,8 +43,8 @@ object VpnAppManager {
 
     fun getInstalledApps(context: Context): List<AppInfo> {
         val pm = context.packageManager
-        val intent = pm.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(0))
-        return intent
+        val apps = pm.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(0))
+        return apps
             .filter { it.packageName != context.packageName }
             .map {
                 val name = pm.getApplicationLabel(it).toString()
